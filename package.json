@@ -1,0 +1,21 @@
+{
+  "name": "etsy-image-optimizer",
+  "version": "0.1.0",
+  "description": "Etsy Image Optimizer - AI-powered tool for optimizing listing images",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": [
+    "etsy",
+    "image",
+    "optimizer",
+    "ai",
+    "gemini"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
