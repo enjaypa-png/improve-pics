@@ -1,7 +1,1 @@
-{
-  "env": {
-    "SUPABASE_URL": "@supabase-url",
-    "SUPABASE_ANON_KEY": "@supabase-anon-key",
-    "GEMINI_API_KEY": "@gemini-api-key"
-  }
-}
+{}
