@@ -1,5 +1,3 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".",
-  "installCommand": "npm install --legacy-peer-deps || true"
+  "framework": null
 }
