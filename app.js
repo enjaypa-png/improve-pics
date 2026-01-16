@@ -213,6 +213,7 @@ async function handleOptimize() {
 
         renderOptimizedImages();
         showOptimizedSection();
+        hideOptimizeButton();
         hideLoading();
 
     } catch (error) {
