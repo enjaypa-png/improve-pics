@@ -380,12 +380,10 @@ function renderOptimizedImages() {
             </div>
             <div class="optimized-actions">
                 <button class="btn-download" data-index="${index}">Download</button>
-                <button class="btn-view" data-index="${index}">View Full Size</button>
             </div>
         `;
 
         card.querySelector('.btn-download').addEventListener('click', () => downloadOptimizedImage(index));
-        card.querySelector('.btn-view').addEventListener('click', () => openModal(optimizedImages, index, true));
 
         container.appendChild(card);
     });
