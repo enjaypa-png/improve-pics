@@ -167,6 +167,19 @@ header h1 {
     letter-spacing: -0.02em;
 }
 
+.header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.header-tagline {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
 .header-controls {
     display: flex;
     align-items: center;
