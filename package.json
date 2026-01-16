@@ -4,6 +4,7 @@
   "description": "Etsy Image Optimizer - AI-powered tool for optimizing listing images",
   "main": "index.html",
   "scripts": {
+    "build": "node build.js",
     "dev": "python -m http.server 8000",
     "start": "python -m http.server 8000"
   },
