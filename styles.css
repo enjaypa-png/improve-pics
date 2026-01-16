@@ -1,29 +1,39 @@
 /*
 ╔═══════════════════════════════════════════════════════════════════════════╗
 ║  ETSY IMAGE OPTIMIZER - DESIGN SYSTEM                                     ║
-║  Inspired by Life Happens (lifehappens.org)                               ║
-║  Theme: Light, Warm, Professional, Friendly                               ║
+║  Inspired by Robinhood (robinhood.com)                                    ║
+║  Theme: Premium, Sophisticated, Modern, Tech-Forward                      ║
 ╚═══════════════════════════════════════════════════════════════════════════╝
 
 DESIGN PRINCIPLES:
-- Warm cream backgrounds create comfort (#F9F7F4) - NOT pure white or dark
-- Bright mint green accent (#00D9A3) feels friendly and trustworthy
+- Pure black backgrounds create luxury and sophistication (#0A0A0A)
+- Neon green CTAs (#C9FF00) are eye-catching and energetic
+- Purple accents (#B565FF) add depth and modern elegance
+- High contrast white text on black for maximum readability
 - Bold, confident typography with strong hierarchy
-- Generous whitespace - never cramped
-- Subtle shadows for depth without heaviness
-- Rounded corners (8-12px) for modern, approachable feel
+- Generous whitespace - premium feel, never cramped
+- Subtle glows and shadows for depth and polish
+- Pill-shaped buttons for modern, friendly interaction
 
 COLOR SYSTEM:
-- Backgrounds: Warm cream → White → Light mint (creates rhythm)
-- Accent: Bright mint green (primary actions, success)
-- Navy: Dark contrast for emphasis
-- Text: Very dark gray (excellent readability)
+- Backgrounds: Pure black → Dark gray → Lighter gray (creates depth)
+- Primary Accent: Neon green (all CTAs, downloads, primary actions)
+- Secondary Accent: Purple (badges, borders, hover states, indicators)
+- Text: Pure white → Light gray → Medium gray (excellent readability)
 
 TYPOGRAPHY:
 - Font: Inter (clean, modern, professional)
 - Scale: Strong hierarchy from 12px to 36px
 - Weights: 400 (normal), 500 (medium), 600 (semibold), 700 (bold)
-- Line Height: 1.6-1.8 for excellent readability
+- Line Height: 1.6-1.7 for excellent readability
+- White text creates brilliant contrast on black
+
+INTERACTION DESIGN:
+- Smooth transitions and hover effects
+- Neon green glows on primary buttons
+- Purple glows on cards and badges
+- Transform on hover for premium feel
+- High contrast ensures accessibility
 
 */
 
@@ -41,56 +51,74 @@ TYPOGRAPHY:
 }
 
 /* ============================================================================
-   DESIGN TOKENS
+   DESIGN TOKENS - ROBINHOOD AESTHETIC
    ========================================================================= */
 
 :root {
-    /* ═══ BACKGROUNDS ═══ */
-    /* Warm and light - creates inviting atmosphere */
-    --bg-primary: #F9F7F4;          /* Warm cream - main background (NOT white!) */
-    --bg-secondary: #FFFFFF;        /* Pure white - cards and panels */
-    --bg-tertiary: #EDF9F6;         /* Light mint - alternating sections */
-    --bg-hover: #F0F9FF;            /* Sky blue tint - subtle hover states */
+    /* ═══ BACKGROUNDS - Black & Dark Gray ═══ */
+    /* Pure black creates luxury and sophistication */
+    --bg-primary: #0A0A0A;          /* Near black - main background (premium!) */
+    --bg-secondary: #1A1A1A;        /* Dark gray - cards and panels */
+    --bg-tertiary: #252525;         /* Lighter gray - nested elements */
+    --bg-hover: #2A2A2A;            /* Hover state - subtle interaction */
+    --bg-modal: rgba(0, 0, 0, 0.9); /* Modal overlay - deep black */
 
-    /* ═══ ACCENT COLORS ═══ */
-    /* Bright and friendly - mint green as primary brand color */
-    --accent: #00D9A3;              /* Bright mint green - primary CTA & interactive */
-    --accent-hover: #00C794;        /* Darker mint - hover states */
-    --accent-light: #E8F8F4;        /* Very light mint - backgrounds & highlights */
-    --accent-dark: #1A2B3C;         /* Dark navy - contrast & emphasis */
+    /* ═══ ACCENT COLORS - Neon Green (PRIMARY) ═══ */
+    /* Bright, energetic, impossible to miss - Robinhood signature */
+    --accent-green: #C9FF00;        /* Neon green - PRIMARY CTAs (download, optimize) */
+    --accent-green-hover: #D1FF33;  /* Lighter green on hover */
+    --accent-green-dark: #B8E600;   /* Darker green for depth */
+    --accent-green-glow: rgba(201, 255, 0, 0.25); /* Glow effect */
+
+    /* ═══ ACCENT COLORS - Purple (SECONDARY) ═══ */
+    /* Sophisticated, modern, complements neon green beautifully */
+    --accent-purple: #B565FF;       /* Purple - badges, borders, accents */
+    --accent-purple-light: #C084FC; /* Lighter purple */
+    --accent-purple-dark: #9333EA;  /* Darker purple for contrast */
+    --accent-purple-glow: rgba(181, 101, 255, 0.25); /* Glow effect */
 
     /* ═══ SEMANTIC COLORS ═══ */
     /* Clear communication through color */
-    --success: #10B981;             /* Fresh green - success states */
-    --success-light: #D1FAE5;       /* Light green bg */
-    --warning: #F59E0B;             /* Warm amber - warnings */
-    --warning-light: #FEF3C7;       /* Light amber bg */
-    --danger: #EF4444;              /* Vibrant red - errors/remove */
-    --danger-light: #FEE2E2;        /* Light red bg */
+    --success: #00C805;             /* Green for success states */
+    --success-light: rgba(0, 200, 5, 0.15); /* Light green background */
+    --warning: #FFA500;             /* Orange for warnings */
+    --warning-light: rgba(255, 165, 0, 0.15); /* Light orange background */
+    --danger: #FF5C5C;              /* Red for errors/remove */
+    --danger-light: rgba(255, 92, 92, 0.15); /* Light red background */
 
-    /* ═══ TEXT COLORS ═══ */
-    /* Dark and clear - excellent readability on light backgrounds */
-    --text-primary: #111827;        /* Very dark gray/black - main text */
-    --text-secondary: #6B7280;      /* Medium gray - supporting text */
-    --text-tertiary: #9CA3AF;       /* Light gray - hints & metadata */
+    /* ═══ TEXT COLORS - White & Gray ═══ */
+    /* High contrast for excellent readability on black */
+    --text-primary: #FFFFFF;        /* Pure white - main text */
+    --text-secondary: #A0A0A0;      /* Light gray - supporting text */
+    --text-tertiary: #6B7280;       /* Medium gray - hints & metadata */
+    --text-on-green: #000000;       /* Black text on neon green buttons */
 
-    /* ═══ BORDERS ═══ */
-    /* Subtle but visible - defines structure */
-    --border-primary: #E5E7EB;      /* Light gray - default borders */
-    --border-secondary: #D1D5DB;    /* Medium gray - emphasized borders */
-    --border-accent: #00D9A3;       /* Mint green - active/focus states */
+    /* ═══ BORDERS - Subtle Gray & Accents ═══ */
+    /* Define structure without being heavy */
+    --border-primary: #2A2A2A;      /* Subtle gray - default borders */
+    --border-secondary: #333333;    /* Medium gray - emphasized borders */
+    --border-accent-green: #C9FF00; /* Neon green for active states */
+    --border-accent-purple: #B565FF; /* Purple for special states */
 
-    /* ═══ SHADOWS ═══ */
-    /* Subtle depth - elevates without weight */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.10);
-    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+    /* ═══ SHADOWS - Depth & Glows ═══ */
+    /* Darker shadows for black backgrounds + special glows */
+    --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.6);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.8);
+    --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.9);
 
-    /* Special shadow with mint tint for primary buttons */
-    --shadow-accent: 0 4px 12px rgba(0, 217, 163, 0.25);
-    --shadow-accent-hover: 0 8px 20px rgba(0, 217, 163, 0.30);
+    /* Special glows for premium feel */
+    --glow-green: 0 0 20px rgba(201, 255, 0, 0.3);
+    --glow-green-hover: 0 0 30px rgba(201, 255, 0, 0.4);
+    --glow-purple: 0 0 20px rgba(181, 101, 255, 0.3);
+    --glow-purple-hover: 0 0 30px rgba(181, 101, 255, 0.4);
+
+    /* Button-specific shadows with glow */
+    --shadow-green-sm: 0 4px 12px rgba(201, 255, 0, 0.25);
+    --shadow-green-lg: 0 8px 24px rgba(201, 255, 0, 0.35);
+    --shadow-purple-sm: 0 4px 12px rgba(181, 101, 255, 0.25);
+    --shadow-purple-lg: 0 8px 24px rgba(181, 101, 255, 0.35);
 
     /* ═══ TYPOGRAPHY SCALE ═══ */
     --text-xs: 0.75rem;      /* 12px */
@@ -122,6 +150,7 @@ TYPOGRAPHY:
     --radius-md: 8px;
     --radius-lg: 12px;
     --radius-xl: 16px;
+    --radius-pill: 24px;     /* Pill-shaped buttons - Robinhood style */
     --radius-full: 9999px;
 
     /* ═══ TRANSITIONS ═══ */
@@ -137,7 +166,7 @@ TYPOGRAPHY:
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: var(--text-base);
-    line-height: 1.7;
+    line-height: 1.6;
     color: var(--text-primary);
     background: var(--bg-primary);
     -webkit-font-smoothing: antialiased;
@@ -198,7 +227,7 @@ header h1 {
 #photoCount {
     font-weight: var(--font-bold);
     font-size: var(--text-2xl);
-    color: var(--accent);
+    color: var(--accent-purple);  /* PURPLE counter - user requirement */
 }
 
 .status-badge {
@@ -213,16 +242,19 @@ header h1 {
 .status-badge.warning {
     background: var(--warning-light);
     color: var(--warning);
+    border: 1px solid var(--warning);
 }
 
 .status-badge.compliant {
     background: var(--success-light);
     color: var(--success);
+    border: 1px solid var(--success);
 }
 
 .status-badge.optimal {
-    background: var(--accent-light);
-    color: var(--accent);
+    background: var(--accent-purple-glow);  /* PURPLE badge - user requirement */
+    color: var(--accent-purple);
+    border: 1px solid var(--accent-purple);
 }
 
 /* ============================================================================
@@ -265,8 +297,14 @@ section h2 {
     text-align: center;
     padding: var(--space-3xl) var(--space-xl);
     background: var(--bg-secondary);
-    border: 2px dashed var(--border-secondary);
+    border: 2px dashed var(--border-accent-purple);  /* PURPLE dashed border - user requirement */
     border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+}
+
+.empty-state:hover {
+    border-color: var(--accent-purple);
+    box-shadow: var(--glow-purple);
 }
 
 .empty-state p {
@@ -305,14 +343,15 @@ section h2 {
 .image-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--accent);
+    border-color: var(--accent-purple);  /* PURPLE border on hover - user requirement */
+    box-shadow: var(--glow-purple);      /* PURPLE glow - user requirement */
 }
 
 .image-role-badge {
     position: absolute;
     top: var(--space-sm);
     left: var(--space-sm);
-    background: var(--accent);
+    background: var(--accent-purple);    /* PURPLE badge - user requirement */
     color: white;
     padding: 0.4rem 0.9rem;
     border-radius: var(--radius-md);
@@ -321,12 +360,13 @@ section h2 {
     text-transform: uppercase;
     letter-spacing: 0.03em;
     z-index: 10;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-purple-sm);
 }
 
-/* Special styling for thumbnail (first image) */
+/* Special styling for thumbnail (first image) - emphasized with gradient */
 .image-card:first-child .image-role-badge {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+    box-shadow: var(--shadow-purple-lg);
 }
 
 .image-card img {
@@ -364,7 +404,7 @@ section h2 {
     width: 32px;
     height: 32px;
     background: var(--danger);
-    border: 2px solid white;
+    border: 2px solid var(--bg-secondary);
     border-radius: var(--radius-full);
     color: white;
     font-size: 1.3rem;
@@ -398,22 +438,26 @@ section h2 {
 
 .btn-optimize {
     padding: 1.2rem 3.5rem;
-    background: var(--accent);
-    color: white;
+    background: var(--accent-green);     /* NEON GREEN - user requirement */
+    color: var(--text-on-green);         /* Black text on green */
     border: none;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-pill);   /* Pill-shaped - Robinhood style */
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
     cursor: pointer;
     transition: all var(--transition-base);
-    box-shadow: var(--shadow-accent);
+    box-shadow: var(--shadow-green-sm);
     letter-spacing: -0.01em;
 }
 
 .btn-optimize:hover {
-    background: var(--accent-hover);
+    background: var(--accent-green-hover);
     transform: translateY(-3px);
-    box-shadow: var(--shadow-accent-hover);
+    box-shadow: var(--shadow-green-lg);
+}
+
+.btn-optimize:active {
+    transform: translateY(-1px);
 }
 
 /* ============================================================================
@@ -437,6 +481,7 @@ section h2 {
 
 .optimized-card:hover {
     box-shadow: var(--shadow-md);
+    border-color: var(--border-secondary);
 }
 
 .optimized-header {
@@ -459,10 +504,12 @@ section h2 {
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
     font-weight: var(--font-bold);
-    background: var(--success-light);
-    color: var(--success);
+    background: var(--accent-purple-glow);  /* PURPLE badge - user requirement */
+    color: var(--accent-purple);
+    border: 1px solid var(--accent-purple);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    box-shadow: var(--shadow-purple-sm);
 }
 
 /* ============================================================================
@@ -502,7 +549,7 @@ section h2 {
 
 .before-after-arrow {
     font-size: 2.5rem;
-    color: var(--accent);
+    color: var(--accent-purple);  /* PURPLE arrow - user requirement */
     font-weight: var(--font-bold);
 }
 
@@ -515,6 +562,7 @@ section h2 {
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
+    border: 1px solid var(--border-primary);
 }
 
 .summary-step {
@@ -547,26 +595,30 @@ section h2 {
 
 .btn-download {
     padding: 0.9rem 2rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-pill);   /* Pill-shaped - Robinhood style */
     font-size: var(--text-base);
     font-weight: var(--font-semibold);
     cursor: pointer;
     transition: all var(--transition-base);
     border: none;
-    background: var(--accent);
-    color: white;
-    box-shadow: var(--shadow-sm);
+    background: var(--accent-green);     /* NEON GREEN - user requirement */
+    color: var(--text-on-green);         /* Black text on green */
+    box-shadow: var(--shadow-green-sm);
 }
 
 .btn-download:hover {
-    background: var(--accent-hover);
+    background: var(--accent-green-hover);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-green-lg);
+}
+
+.btn-download:active {
+    transform: translateY(0);
 }
 
 .btn-primary, .btn-secondary {
     padding: 0.9rem 1.8rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-pill);   /* Pill-shaped - Robinhood style */
     font-size: var(--text-base);
     font-weight: var(--font-semibold);
     cursor: pointer;
@@ -574,16 +626,16 @@ section h2 {
 }
 
 .btn-primary {
-    background: var(--accent);
-    color: white;
+    background: var(--accent-green);     /* NEON GREEN - user requirement */
+    color: var(--text-on-green);         /* Black text on green */
     border: none;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-green-sm);
 }
 
 .btn-primary:hover {
-    background: var(--accent-hover);
+    background: var(--accent-green-hover);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-green-lg);
 }
 
 .btn-secondary {
@@ -594,7 +646,7 @@ section h2 {
 
 .btn-secondary:hover {
     background: var(--bg-tertiary);
-    border-color: var(--accent);
+    border-color: var(--accent-purple);  /* PURPLE border on hover - user requirement */
 }
 
 /* ============================================================================
@@ -608,7 +660,7 @@ section h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.80);
+    background: rgba(0, 0, 0, 0.90);     /* Deeper black overlay */
     z-index: 1000;
     align-items: center;
     justify-content: center;
@@ -635,43 +687,45 @@ section h2 {
     position: fixed;
     top: var(--space-xl);
     right: var(--space-xl);
-    background: var(--accent);
+    background: var(--accent-green);     /* NEON GREEN - user requirement */
     border: none;
-    color: white;
+    color: var(--text-on-green);         /* Black text on green */
     font-size: var(--text-2xl);
     cursor: pointer;
     padding: 0.9rem 1.4rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-pill);   /* Pill-shaped - Robinhood style */
     transition: all var(--transition-base);
     z-index: 1001;
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-green-lg);
     font-weight: var(--font-bold);
 }
 
 .modal-close:hover {
-    background: var(--accent-hover);
+    background: var(--accent-green-hover);
     transform: scale(1.05);
+    box-shadow: var(--glow-green-hover);
 }
 
 .modal-nav {
     position: fixed;
     bottom: 6rem;
-    background: var(--accent);
-    border: none;
-    color: white;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-accent-purple);  /* PURPLE border - user requirement */
+    color: var(--text-primary);
     font-size: var(--text-xl);
     padding: 1.1rem 1.6rem;
     cursor: pointer;
     transition: all var(--transition-base);
     border-radius: var(--radius-md);
     z-index: 1001;
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-lg);
     font-weight: var(--font-bold);
 }
 
 .modal-nav:hover {
-    background: var(--accent-hover);
-    transform: scale(1.05);
+    background: var(--accent-purple-glow);  /* PURPLE hover - user requirement */
+    border-color: var(--accent-purple);
+    box-shadow: var(--glow-purple-hover);
 }
 
 .modal-nav-prev {
@@ -696,6 +750,7 @@ section h2 {
     object-fit: contain;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-secondary);
 }
 
 .modal-summary {
@@ -710,7 +765,7 @@ section h2 {
 
 .modal-summary h3 {
     margin-bottom: var(--space-lg);
-    color: var(--accent);
+    color: var(--accent-purple);  /* PURPLE heading - user requirement */
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
 }
@@ -739,7 +794,7 @@ section h2 {
     background: var(--bg-secondary);
     padding: var(--space-2xl) var(--space-3xl);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--border-secondary);
     z-index: 3000;
     text-align: center;
     min-width: 280px;
@@ -754,7 +809,7 @@ section h2 {
     width: 56px;
     height: 56px;
     border: 4px solid var(--border-primary);
-    border-top-color: var(--accent);
+    border-top-color: var(--accent-purple);  /* PURPLE spinner - user requirement */
     border-radius: var(--radius-full);
     animation: spin 0.8s linear infinite;
     margin: 0 auto var(--space-lg);
@@ -790,7 +845,7 @@ section h2 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-tertiary);
+    background: var(--accent-purple);  /* PURPLE scrollbar on hover - user requirement */
 }
 
 /* ============================================================================
@@ -890,6 +945,16 @@ section h2 {
 /*
 ╔═══════════════════════════════════════════════════════════════════════════╗
 ║  END OF DESIGN SYSTEM                                                     ║
-║  Etsy Image Optimizer - Warm, Professional, User-Friendly                ║
+║  Etsy Image Optimizer - Premium, Sophisticated, Robinhood-Inspired       ║
+║                                                                            ║
+║  KEY FEATURES:                                                            ║
+║  • Pure black backgrounds (#0A0A0A) for luxury feel                      ║
+║  • Neon green CTAs (#C9FF00) for all primary actions                     ║
+║  • Purple accents (#B565FF) throughout badges, borders, and hover states ║
+║  • High contrast white text for excellent readability                    ║
+║  • Pill-shaped buttons inspired by Robinhood                             ║
+║  • Subtle glows and shadows for depth and polish                         ║
+║  • Smooth animations for premium feel                                    ║
+║  • Generous spacing maintains sophisticated aesthetic                    ║
 ╚═══════════════════════════════════════════════════════════════════════════╝
 */
