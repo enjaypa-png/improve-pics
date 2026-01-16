@@ -15,60 +15,42 @@
                 <span id="photoCount">0</span> photos
                 <span id="photoCountStatus" class="status-badge"></span>
             </div>
-            <div class="aspect-ratio-selector">
-                <label for="aspectRatio">Aspect Ratio:</label>
-                <select id="aspectRatio">
-                    <option value="4:3" selected>4:3 (Default)</option>
-                    <option value="1:1">1:1 (Square)</option>
-                    <option value="16:9">16:9 (Wide)</option>
-                </select>
-            </div>
         </div>
     </header>
 
     <!-- Main Content Area -->
     <main>
-        <!-- Elements Library -->
-        <section id="elementsSection" class="elements-section">
+        <!-- Upload Section -->
+        <section id="uploadSection" class="upload-section">
             <div class="section-header">
-                <h2>Saved Elements</h2>
-                <button id="refreshElements" class="btn-secondary">Refresh</button>
-            </div>
-            <div id="elementsList" class="elements-list">
-                <!-- Elements will be loaded here -->
-            </div>
-        </section>
-
-        <!-- Uploaded Images -->
-        <section id="uploadedSection" class="uploaded-section">
-            <div class="section-header">
-                <h2>Uploaded Images</h2>
+                <h2>Upload Images</h2>
                 <button id="addImagesBtn" class="btn-primary">
-                    <span>+</span> Add Images
+                    <span>+</span> Add Images (Max 10)
                 </button>
-                <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                <input type="file" id="fileInput" accept="image/jpeg,image/jpg,image/png,image/gif" multiple hidden>
             </div>
             <div id="uploadedImages" class="images-grid">
-                <!-- Uploaded images will appear here -->
+                <div class="empty-state">
+                    <p>Upload 1-10 images to get started</p>
+                    <p class="empty-state-hint">First image will be optimized as thumbnail (1:1), rest as supporting images (4:3)</p>
+                </div>
+            </div>
+            <div id="uploadActions" class="upload-actions" style="display: none;">
+                <button id="optimizeBtn" class="btn-optimize">Optimize Images for Etsy</button>
             </div>
         </section>
 
-        <!-- Generated Images -->
-        <section id="generatedSection" class="generated-section">
-            <h2>Generated Images</h2>
-            <div id="generatedImages" class="images-grid">
-                <!-- Generated images will appear here -->
+        <!-- Optimized Images Section -->
+        <section id="optimizedSection" class="optimized-section" style="display: none;">
+            <div class="section-header">
+                <h2>Optimized Images</h2>
+                <button id="downloadAllBtn" class="btn-secondary">Download All</button>
+            </div>
+            <div id="optimizedImages" class="optimized-grid">
+                <!-- Optimized images will appear here -->
             </div>
         </section>
     </main>
-
-    <!-- Fixed Bottom Prompt Input -->
-    <div class="prompt-container">
-        <div class="prompt-input-wrapper">
-            <div id="promptDisplay" class="prompt-display" contenteditable="true" data-placeholder="Type your optimization prompt... Use @elementName to reference saved elements"></div>
-            <button id="generateBtn" class="btn-generate">Generate</button>
-        </div>
-    </div>
 
     <!-- Full-Screen Modal -->
     <div id="imageModal" class="modal">
@@ -76,23 +58,14 @@
             <button class="modal-close">&times;</button>
             <button class="modal-nav modal-nav-prev">&larr;</button>
             <button class="modal-nav modal-nav-next">&rarr;</button>
-            <img id="modalImage" src="" alt="Full view">
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="Full view">
+            </div>
+            <div id="modalSummary" class="modal-summary">
+                <!-- Optimization summary will appear here -->
+            </div>
             <div class="modal-actions">
                 <button id="modalDownload" class="btn-primary">Download</button>
-                <button id="modalSaveElement" class="btn-secondary">Save as Element</button>
-                <button id="modalReinsert" class="btn-secondary">Re-insert to Prompt</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Save Element Dialog -->
-    <div id="saveElementDialog" class="dialog">
-        <div class="dialog-content">
-            <h3>Save as Element</h3>
-            <input type="text" id="elementNameInput" placeholder="Enter element name (e.g., jewelry_anchor)" maxlength="50">
-            <div class="dialog-actions">
-                <button id="confirmSaveElement" class="btn-primary">Save</button>
-                <button id="cancelSaveElement" class="btn-secondary">Cancel</button>
             </div>
         </div>
     </div>
@@ -100,14 +73,8 @@
     <!-- Loading Indicator -->
     <div id="loadingIndicator" class="loading-indicator">
         <div class="spinner"></div>
-        <p>Processing...</p>
+        <p id="loadingText">Processing...</p>
     </div>
-
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Environment Configuration (optional - for local development) -->
-    <script src="env.js" onerror="console.log('No env.js found - using default/empty config')"></script>
 
     <!-- App Script -->
     <script type="module" src="app.js"></script>
