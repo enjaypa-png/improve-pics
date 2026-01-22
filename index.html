@@ -180,35 +180,49 @@
             const heroAddImagesBtn = document.getElementById('heroAddImagesBtn');
             const addImagesBtn = document.getElementById('addImagesBtn');
             const fileInput = document.getElementById('fileInput');
+            const uploadedImages = document.getElementById('uploadedImages');
+
+            // Function to check if images are present and toggle visibility
+            function checkAndToggle() {
+                const hasImages = uploadedImages.querySelectorAll('.image-card').length > 0;
+                const hasEmptyState = uploadedImages.querySelector('.empty-state') !== null;
+
+                if (hasImages || (!hasEmptyState && uploadedImages.children.length > 0)) {
+                    // Images are present - show optimizer, hide hero
+                    heroSection.classList.add('hidden');
+                    optimizerContainer.classList.remove('hidden');
+                } else {
+                    // No images - show hero, hide optimizer
+                    heroSection.classList.remove('hidden');
+                    optimizerContainer.classList.add('hidden');
+                }
+            }
+
+            // Check on page load (in case images were already loaded)
+            setTimeout(checkAndToggle, 100); // Small delay to ensure app.js has run
 
             // Hero button triggers the same file input as main button
-            heroAddImagesBtn.addEventListener('click', function() {
-                fileInput.click();
-            });
+            if (heroAddImagesBtn) {
+                heroAddImagesBtn.addEventListener('click', function() {
+                    fileInput.click();
+                });
+            }
 
             // Watch for file selection to hide hero and show optimizer
             fileInput.addEventListener('change', function() {
                 if (fileInput.files.length > 0) {
-                    heroSection.classList.add('hidden');
-                    optimizerContainer.classList.remove('hidden');
+                    // Give app.js time to process the files
+                    setTimeout(checkAndToggle, 200);
                 }
             });
 
-            // Optional: Watch for when images are cleared to show hero again
-            // This would require monitoring the uploadedImages container
+            // Watch for changes in the uploaded images container
             const observer = new MutationObserver(function(mutations) {
-                const uploadedImages = document.getElementById('uploadedImages');
-                const hasImages = uploadedImages.querySelectorAll('.image-card').length > 0;
-
-                if (!hasImages && uploadedImages.querySelector('.empty-state')) {
-                    // No images present - could show hero again
-                    // Uncomment if you want hero to reappear when all images are removed
-                    // heroSection.classList.remove('hidden');
-                    // optimizerContainer.classList.add('hidden');
-                }
+                // Debounce the check to avoid too many calls
+                setTimeout(checkAndToggle, 100);
             });
 
-            observer.observe(document.getElementById('uploadedImages'), {
+            observer.observe(uploadedImages, {
                 childList: true,
                 subtree: true
             });
