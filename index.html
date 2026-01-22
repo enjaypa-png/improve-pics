@@ -187,7 +187,7 @@
                 const hasImages = uploadedImages.querySelectorAll('.image-card').length > 0;
                 const hasEmptyState = uploadedImages.querySelector('.empty-state') !== null;
 
-                if (hasImages || (!hasEmptyState && uploadedImages.children.length > 0)) {
+                if (hasImages) {
                     // Images are present - show optimizer, hide hero
                     heroSection.classList.add('hidden');
                     optimizerContainer.classList.remove('hidden');
@@ -198,8 +198,11 @@
                 }
             }
 
-            // Check on page load (in case images were already loaded)
-            setTimeout(checkAndToggle, 100); // Small delay to ensure app.js has run
+            // Check multiple times to catch app.js loading images
+            // app.js is a module so it loads asynchronously
+            setTimeout(checkAndToggle, 100);
+            setTimeout(checkAndToggle, 300);
+            setTimeout(checkAndToggle, 600);
 
             // Hero button triggers the same file input as main button
             if (heroAddImagesBtn) {
@@ -212,14 +215,14 @@
             fileInput.addEventListener('change', function() {
                 if (fileInput.files.length > 0) {
                     // Give app.js time to process the files
-                    setTimeout(checkAndToggle, 200);
+                    setTimeout(checkAndToggle, 300);
                 }
             });
 
             // Watch for changes in the uploaded images container
             const observer = new MutationObserver(function(mutations) {
-                // Debounce the check to avoid too many calls
-                setTimeout(checkAndToggle, 100);
+                // Check immediately when images are added/removed
+                checkAndToggle();
             });
 
             observer.observe(uploadedImages, {
