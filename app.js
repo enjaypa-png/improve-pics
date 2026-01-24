@@ -162,18 +162,34 @@ function removeImage(index) {
 // Show/Hide Optimize Button
 function showOptimizeButton() {
     document.getElementById('uploadActions').style.display = 'block';
+    document.getElementById('optimizationPreview').style.display = 'block';
 }
 
 function hideOptimizeButton() {
     document.getElementById('uploadActions').style.display = 'none';
+    document.getElementById('optimizationPreview').style.display = 'none';
 }
 
 // Update Photo Count
 function updatePhotoCount() {
     const count = uploadedImages.length;
+    const photoCountIndicator = document.querySelector('.photo-count-indicator');
+    const statusEl = document.getElementById('photoCountStatus');
+
     document.getElementById('photoCount').textContent = count;
 
-    const statusEl = document.getElementById('photoCountStatus');
+    // Hide photo count indicator when no images
+    if (count === 0) {
+        if (photoCountIndicator) {
+            photoCountIndicator.style.display = 'none';
+        }
+        return;
+    }
+
+    // Show photo count indicator when images are present
+    if (photoCountIndicator) {
+        photoCountIndicator.style.display = 'flex';
+    }
 
     if (count >= 1 && count <= 4) {
         statusEl.textContent = 'Few Photos';
@@ -337,15 +353,48 @@ function generateOptimizationSummary(data) {
     const label = data.isThumbnail ? ETSY_SPECS.thumbnail.label : ETSY_SPECS.supporting.label;
     const compressionRatio = ((1 - data.finalSize / data.originalSize) * 100).toFixed(1);
 
+    // Determine if image was upscaled or compressed
+    let fileSizeMessage, fileSizeTooltip;
+    if (data.finalSize > data.originalSize) {
+        // File size increased (upscaling)
+        const increasePercent = (((data.finalSize / data.originalSize) - 1) * 100).toFixed(1);
+        fileSizeMessage = `✓ Upscaled from ${formatFileSize(data.originalSize)} → ${formatFileSize(data.finalSize)} to meet Etsy's 3000px requirement`;
+        fileSizeTooltip = 'Etsy requires minimum 3000px width. Small images are upscaled to meet this requirement for optimal display.';
+    } else {
+        // File size decreased (compression)
+        fileSizeMessage = `✓ Compressed from ${formatFileSize(data.originalSize)} → ${formatFileSize(data.finalSize)} (${compressionRatio}% reduction)`;
+        fileSizeTooltip = 'Smaller file sizes load faster, improving customer experience and SEO. Etsy recommends under 1MB per image.';
+    }
+
     return {
         label: `${label} #${data.index}`,
         steps: [
-            `✓ Cropped to ${data.aspectRatio} for Etsy ${data.isThumbnail ? 'thumbnail' : 'listing'}`,
-            `✓ Resized from ${data.originalWidth} × ${data.originalHeight} px to ${data.targetWidth} × ${data.targetHeight} px`,
-            `✓ Converted to sRGB color profile`,
-            `✓ Set resolution metadata to 72 PPI`,
-            `✓ Compressed from ${formatFileSize(data.originalSize)} → ${formatFileSize(data.finalSize)} (${compressionRatio}% reduction)`,
-            `✓ Ready for Etsy upload`
+            {
+                text: `✓ Cropped to ${data.aspectRatio} for Etsy ${data.isThumbnail ? 'thumbnail' : 'listing'}`,
+                tooltip: data.isThumbnail
+                    ? 'Etsy thumbnails display as squares (1:1). Cropping ensures your product is centered and fully visible in search results.'
+                    : 'Etsy supporting images use 4:3 ratio for consistent gallery display across all devices.'
+            },
+            {
+                text: `✓ Resized from ${data.originalWidth} × ${data.originalHeight} px to ${data.targetWidth} × ${data.targetHeight} px`,
+                tooltip: 'Etsy requires minimum 3000px width for zoom functionality. This ensures customers can see product details clearly.'
+            },
+            {
+                text: `✓ Converted to sRGB color profile`,
+                tooltip: 'sRGB ensures colors appear consistent across all browsers, devices, and monitors. Critical for accurate product representation.'
+            },
+            {
+                text: `✓ Set resolution metadata to 72 PPI`,
+                tooltip: '72 PPI is the web standard. Higher PPI only increases file size without improving screen display quality.'
+            },
+            {
+                text: fileSizeMessage,
+                tooltip: fileSizeTooltip
+            },
+            {
+                text: `✓ Ready for Etsy upload`,
+                tooltip: 'All optimizations complete. Image meets Etsy\'s technical requirements and best practices for maximum visibility.'
+            }
         ],
         ready: data.finalSize <= ETSY_SPECS.common.maxFileSize
     };
@@ -354,11 +403,28 @@ function generateOptimizationSummary(data) {
 // Render Optimized Images
 function renderOptimizedImages() {
     const container = document.getElementById('optimizedImages');
+    const thumbnailNav = document.getElementById('thumbnailNav');
     container.innerHTML = '';
+    thumbnailNav.innerHTML = '';
 
+    // Render thumbnails
+    optimizedImages.forEach((image, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'thumbnail-item';
+        if (index === 0) thumbnail.classList.add('active');
+        thumbnail.innerHTML = `
+            <img src="${image.afterPreview}" alt="${image.summary.label}">
+            <div class="thumbnail-label">#${index + 1}</div>
+        `;
+        thumbnail.addEventListener('click', () => scrollToOptimizedImage(index));
+        thumbnailNav.appendChild(thumbnail);
+    });
+
+    // Render optimized cards
     optimizedImages.forEach((image, index) => {
         const card = document.createElement('div');
         card.className = 'optimized-card';
+        card.id = `optimized-card-${index}`;
         card.innerHTML = `
             <div class="optimized-header">
                 <h3>${image.summary.label}</h3>
@@ -376,7 +442,11 @@ function renderOptimizedImages() {
                 </div>
             </div>
             <div class="optimization-summary">
-                ${image.summary.steps.map(step => `<div class="summary-step">${step}</div>`).join('')}
+                ${image.summary.steps.map(step => `
+                    <div class="summary-step" data-tooltip="${step.tooltip}">
+                        ${step.text}
+                    </div>
+                `).join('')}
             </div>
             <div class="optimized-actions">
                 <button class="btn-download" data-index="${index}">Download</button>
@@ -387,6 +457,19 @@ function renderOptimizedImages() {
 
         container.appendChild(card);
     });
+}
+
+// Scroll to specific optimized image
+function scrollToOptimizedImage(index) {
+    const card = document.getElementById(`optimized-card-${index}`);
+    if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Update active thumbnail
+        document.querySelectorAll('.thumbnail-item').forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+    }
 }
 
 // Show/Hide Optimized Section
@@ -439,7 +522,11 @@ function openModal(imageArray, index, isOptimized) {
         modalImage.src = image.afterPreview;
         modalSummary.innerHTML = `
             <h3>${image.summary.label}</h3>
-            ${image.summary.steps.map(step => `<div class="summary-step">${step}</div>`).join('')}
+            ${image.summary.steps.map(step => `
+                <div class="summary-step" data-tooltip="${step.tooltip}">
+                    ${step.text}
+                </div>
+            `).join('')}
         `;
         modalSummary.style.display = 'block';
     } else {
